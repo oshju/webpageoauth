@@ -2,16 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Redirigiendo...</title>
+    <title>eBay OAuth Callback</title>
     <script type="text/javascript">
-        // Redirige al esquema personalizado
-        window.location.href = "myapp://auth";
+        // Capturar el código de autorización desde la URL
+        const params = new URLSearchParams(window.location.search);
+        const authCode = params.get('code');
+
+        if (authCode) {
+            // Envía el código de autorización a tu app Swift mediante un esquema personalizado
+            window.location.href = "myapp://auth?code=" + authCode;
+        } else {
+            document.body.innerHTML = "<h3>Error: No se recibió el código de autorización.</h3>";
+        }
     </script>
 </head>
 <body>
-    <p>Redirigiendo a la aplicación...</p>
-    <p>Si la redirección no funciona, <a href="myapp://auth">haz clic aquí</a>.</p>
+    <p>Procesando la autorización de eBay...</p>
 </body>
 </html>
+
